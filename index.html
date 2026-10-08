@@ -51,7 +51,21 @@
         .top nav a:hover { color: var(--ink); text-decoration: none; }
 
         /* Intro: the same short header as the GitHub organisation page */
-        .about { padding-block: 2.5rem 1rem; max-width: 44rem; }
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        .about-row { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; gap: 3rem; align-items: start; padding-block: 2.5rem 1rem; }
+        .about { max-width: 44rem; }
+        .platforms { border: 1px solid var(--line); border-radius: 14px; background: var(--subtle); padding: 1rem 1.1rem; }
+        .platforms h2 { font-size: .8125rem; font-weight: 500; color: var(--text-3); margin: 0 0 .5rem; letter-spacing: 0; }
+        .platforms ul { list-style: none; margin: 0; padding: 0; }
+        .platforms li { display: flex; align-items: center; gap: .7rem; padding: .6rem 0; border-top: 1px solid var(--line); }
+        .platforms li:first-child { border-top: 0; }
+        .platforms .pf { position: static; flex: none; width: 30px; height: 30px; border-radius: 8px; }
+        .platforms .pf svg { width: 16px; height: 16px; }
+        .platforms b { display: block; font-weight: 500; font-size: .9375rem; }
+        .platforms small { display: block; color: var(--text-3); font-size: .8125rem; }
+        .platforms a.count { margin-left: auto; font-size: .8125rem; white-space: nowrap; }
+        .platforms .later { opacity: .7; }
+        @media (max-width: 52rem) { .about-row { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; } }
         .about p { margin: 0 0 .9rem; color: var(--text-2); }
         .about .lead { color: var(--ink); font-weight: 600; font-size: 1.0625rem; }
         .button { display: inline-flex; align-items: center; font: 500 .875rem/1 var(--sans); padding: .65rem 1rem; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
@@ -89,13 +103,14 @@
         .links { display: flex; gap: .9rem; font-size: .8125rem; font-weight: 500; margin-top: .2rem; }
 
         /* Principles: a soft panel */
-        .band { background: var(--subtle); border-block: 1px solid var(--line); }
+        .band { background: var(--subtle); border-top: 1px solid var(--line); }
         .principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin: 0; padding: 0; list-style: none; }
         .principles li { border-top: 1px solid var(--line); padding-top: 1.25rem; }
         .principles b { display: block; font-weight: 600; margin-bottom: .4rem; }
         .principles span { color: var(--text-2); font-size: .9375rem; }
 
 
+        .foot-band { flex: 1; background: var(--subtle); }
         .foot { margin-top: 0; padding-block: 2rem 3rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; color: var(--text-3); font-size: .9rem; }
         .foot a { color: var(--ink); }
 
@@ -117,10 +132,19 @@
     </header>
 
     <main>
-        <div class="wrap"><section class="about">
+        <div class="wrap about-row"><section class="about">
             <p class="lead">Ruvelo builds open-source extensions for the platforms you already run: Laravel, WordPress and Magento.</p>
             <p>Every Ruvelo extension installs in one command, works without a build step, and comes with typed APIs, real docs and a live demo. Clean enough for your users, solid enough for your codebase.</p>
-        </section></div>
+        </section>
+            <aside class="platforms" aria-label="Platforms">
+                <h2>Platforms</h2>
+                <ul>
+                    <li><span class="pf pf--laravel"><svg aria-hidden="true"><use href="#pf-laravel"/></svg></span><div><b>Laravel</b><small data-latest>Latest: Laravel Wiki v1.2.0</small></div><a class="count" href="#laravel" data-count="laravel">4 extensions</a></li>
+                    <li class="later"><span class="pf pf--wordpress"><svg aria-hidden="true"><use href="#pf-wordpress"/></svg></span><div><b>WordPress</b><small>In preparation</small></div></li>
+                    <li class="later"><span class="pf pf--magento"><svg aria-hidden="true"><use href="#pf-magento"/></svg></span><div><b>Magento</b><small>In preparation</small></div></li>
+                </ul>
+            </aside>
+        </div>
 
         <section class="wrap section" id="packages">
             <h2>Extensions</h2>
@@ -191,10 +215,10 @@
 
     </main>
 
-    <footer class="wrap foot">
+    <div class="foot-band"><footer class="wrap foot">
         <span>Built by <a href="https://github.com/francoisbultez">François Bultez</a>. Every extension is MIT licensed.</span>
         <span><a href="https://github.com/Ruvelo/.github/blob/main/BRAND.md">House style</a> &nbsp; <a href="https://github.com/Ruvelo">GitHub</a></span>
-    </footer>
+    </footer></div>
 
     <script>
         // Copy buttons
@@ -228,6 +252,24 @@
         filters.hidden = false;
         const fromHash = location.hash.slice(1);
         show(counts[fromHash] ? fromHash : 'all');
+
+        // The Platforms panel: count released extensions (cards with a demo)
+        // and name the newest release.
+        for (const link of document.querySelectorAll('[data-count]')) {
+            const live = cards.filter((card) => card.dataset.platform === link.dataset.count && card.querySelector('[data-repo]')).length;
+            link.textContent = `${live} extension${live === 1 ? '' : 's'}`;
+            link.addEventListener('click', () => show(link.dataset.count));
+        }
+        const latest = document.querySelector('[data-latest]');
+        Promise.all([...document.querySelectorAll('[data-repo]')].map((badge) =>
+            fetch(`https://api.github.com/repos/Ruvelo/${badge.dataset.repo}/releases/latest`)
+                .then((r) => (r.ok ? r.json() : null))
+                .then((release) => release && { name: badge.closest('.info').querySelector('h3 a').textContent, tag: release.tag_name, at: release.published_at })
+                .catch(() => null)))
+            .then((releases) => {
+                const newest = releases.filter(Boolean).sort((a, b) => b.at.localeCompare(a.at))[0];
+                if (newest && latest) latest.textContent = `Latest: ${newest.name} ${newest.tag}`;
+            });
 
         // Latest release from GitHub, so the badges stay current; the
         // versions written in the HTML are the fallback.
