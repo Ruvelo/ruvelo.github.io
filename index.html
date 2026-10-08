@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ruvelo · open-source packages for Laravel</title>
+    <meta name="description" content="Ruvelo builds polished, open-source packages for Laravel: a wiki, a notification inbox, comments and a help centre. Typed APIs, real docs and a live demo for each.">
+    <meta property="og:title" content="Ruvelo">
+    <meta property="og:description" content="Polished, open-source packages for Laravel.">
+    <meta property="og:image" content="https://ruvelo.github.io/assets/avatar.png">
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap">
+    <style>
+        :root {
+            --bg: #ffffff; --subtle: #f8f8fc; --muted: #f0f0f7; --line: #e4e4ef;
+            --ink: #16162a; --text-2: #4b4b63; --text-3: #74748b;
+            --accent: #3d4eff; --accent-hover: #2b38d6; --accent-soft: #eef0ff; --lilac: #a78bfa;
+            --on-accent: #fff; --night: #11111c; --grid: #e4e4ef;
+            --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+            --mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+            color-scheme: light;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #11111c; --subtle: #171725; --muted: #1f1f30; --line: #2a2a3f;
+                --ink: #f1f1f8; --text-2: #b6b6cc; --text-3: #8787a3;
+                --accent: #8f9bff; --accent-hover: #b3bbff; --accent-soft: #1e2150;
+                --on-accent: #0b0b1a; --grid: #22223a;
+                color-scheme: dark;
+            }
+            .logo-light { display: none; }
+            .logo-dark { display: inline !important; }
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+        body::before { content: ""; position: fixed; inset: 0 0 auto; height: 3px; z-index: 50; background: linear-gradient(90deg, #3d4eff, #a78bfa); }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; text-underline-offset: 3px; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+        code { font-family: var(--mono); font-variant-ligatures: none; }
+        .wrap { width: min(72rem, 100% - 32px); margin-inline: auto; }
+
+        /* Header */
+        .top { display: flex; align-items: center; justify-content: space-between; padding-block: 1.4rem; }
+        .top img { height: 34px; display: block; }
+        .top nav { display: flex; gap: 1.5rem; font-size: .9375rem; }
+        .top nav a { color: var(--text-2); }
+        .top nav a:hover { color: var(--ink); text-decoration: none; }
+
+        /* Hero: the grid and the glow */
+        .hero { position: relative; isolation: isolate; padding-block: clamp(3rem, 9vw, 6.5rem) clamp(3rem, 7vw, 5rem); }
+        .hero::before {
+            content: ""; position: absolute; inset: -8rem -50vw 0 -50vw; z-index: -2;
+            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(ellipse 55% 75% at 50% 0%, #000 25%, transparent 75%);
+        }
+        .hero::after {
+            content: ""; position: absolute; z-index: -1; right: 0; top: 10%; width: min(40rem, 70vw); height: 26rem;
+            background: radial-gradient(closest-side, rgb(61 78 255 / .28), transparent), radial-gradient(closest-side at 70% 60%, rgb(167 139 250 / .3), transparent);
+            filter: blur(40px);
+        }
+        .hero-art { display: none; }
+        @media (min-width: 64rem) {
+            .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 2rem; align-items: center; }
+            .hero-art { display: block; position: relative; height: 26rem; }
+            .hero-art img { position: absolute; width: 30rem; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); box-shadow: 0 30px 60px -28px rgb(22 22 42 / .35), 0 0 0 6px color-mix(in srgb, var(--bg) 70%, transparent); }
+            .hero-art img:nth-child(1) { top: 0; left: 0; rotate: -6deg; }
+            .hero-art img:nth-child(2) { top: 5rem; left: 4.5rem; rotate: 3deg; }
+            .hero-art img:nth-child(3) { top: 10.5rem; left: 1rem; rotate: -1deg; }
+        }
+        @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+            .hero-art img { transition: translate .5s cubic-bezier(.2, .8, .2, 1); }
+            .hero-art:hover img:nth-child(1) { translate: -1rem -0.75rem; }
+            .hero-art:hover img:nth-child(2) { translate: 1.25rem 0; }
+            .hero-art:hover img:nth-child(3) { translate: -0.5rem 1rem; }
+        }
+        .hero h1 { font-size: clamp(2.6rem, 6.4vw, 4.75rem); line-height: 1.02; font-weight: 600; letter-spacing: -.05em; margin: 0; max-width: 15ch; text-wrap: balance; }
+        .hero p { font-size: clamp(1.0625rem, 1.9vw, 1.25rem); color: var(--text-2); max-width: 38rem; margin: 1.5rem 0 2.25rem; }
+        .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+        .button { display: inline-flex; align-items: center; gap: .5rem; font: 500 .9375rem/1 var(--sans); padding: .85rem 1.2rem; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--accent) 80%, transparent); }
+        .button:hover { background: var(--accent-hover); border-color: var(--accent-hover); text-decoration: none; }
+        .button--quiet { background: var(--bg); color: var(--ink); border-color: var(--line); box-shadow: none; }
+        .button--quiet:hover { background: var(--subtle); border-color: var(--line); }
+        .stats { display: flex; flex-wrap: wrap; gap: .5rem 2rem; margin-top: 2.75rem; color: var(--text-3); font-size: .9rem; }
+        .stats b { color: var(--ink); font-weight: 600; }
+
+        /* Packages */
+        .section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+        .section h2 { font-size: clamp(1.75rem, 3.4vw, 2.4rem); font-weight: 600; letter-spacing: -.035em; line-height: 1.1; margin: 0 0 .75rem; }
+        .section > .intro { color: var(--text-2); max-width: 38rem; margin: 0 0 2.25rem; }
+        .packages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+        .card { display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; transition: border-color .2s, box-shadow .2s, transform .2s; }
+        .card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); box-shadow: 0 24px 50px -30px rgb(61 78 255 / .45); transform: translateY(-2px); }
+        .shot { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--subtle); border-bottom: 1px solid var(--line); }
+        .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; transition: transform .4s; }
+        .card:hover .shot img { transform: scale(1.015); }
+        .body { padding: 1.4rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: .9rem; flex: 1; }
+        .head { display: flex; align-items: center; gap: .85rem; }
+        .chip { width: 2.6rem; height: 2.6rem; border-radius: 10px; background: linear-gradient(135deg, #3d4eff, #a78bfa); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 1.15rem; flex: none; box-shadow: 0 8px 18px -8px rgb(61 78 255 / .7); }
+        .head h3 { margin: 0; font-size: 1.15rem; font-weight: 600; letter-spacing: -.015em; }
+        .head h3 a { color: var(--ink); }
+        .version { margin-left: auto; font: 400 .78rem var(--mono); color: var(--accent-hover); background: var(--accent-soft); border-radius: 999px; padding: .2rem .6rem; white-space: nowrap; }
+        .body p { margin: 0; color: var(--text-2); }
+        .install { display: flex; align-items: center; gap: .5rem; background: var(--muted); border-radius: 8px; padding: .3rem .3rem .3rem .85rem; font: 400 .8125rem var(--mono); margin-top: auto; }
+        .install code { flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .install code::before { content: "$ "; color: var(--text-3); }
+        .copy { font: 500 .78rem var(--sans); border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 6px; padding: .4rem .65rem; cursor: pointer; }
+        .copy[data-done] { color: var(--accent); }
+        .links { display: flex; gap: 1.25rem; font-size: .9rem; font-weight: 500; }
+        .card--soon { background: var(--subtle); border-style: dashed; }
+        .card--soon:hover { transform: none; box-shadow: none; border-color: var(--line); }
+        .card--soon .chip { background: var(--muted); color: var(--text-3); box-shadow: none; }
+        .soon { margin-left: auto; font-size: .78rem; color: var(--text-3); border: 1px solid var(--line); border-radius: 999px; padding: .15rem .6rem; }
+
+        /* Principles: the dark band */
+        .band { background: var(--night); color: #e7e7f3; position: relative; overflow: hidden; isolation: isolate; }
+        .band::before { content: ""; position: absolute; z-index: -1; width: 44rem; height: 44rem; right: -14rem; top: -22rem; background: radial-gradient(closest-side, rgb(61 78 255 / .35), transparent); }
+        .band h2 { color: #fff; }
+        .band .intro { color: #a9a9c2; }
+        .principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin: 0; padding: 0; list-style: none; }
+        .principles li { border-top: 1px solid #2a2a3f; padding-top: 1.25rem; }
+        .principles b { display: block; color: #fff; font-weight: 600; margin-bottom: .4rem; }
+        .principles span { color: #a9a9c2; font-size: .9375rem; }
+
+        .next { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; background: var(--accent-soft); border-radius: 16px; padding: 1.75rem 2rem; }
+        .next h2 { font-size: 1.5rem; margin: 0 0 .25rem; }
+        .next p { margin: 0; color: var(--text-2); }
+
+        .foot { border-top: 1px solid var(--line); margin-top: 1rem; padding-block: 2rem 3rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; color: var(--text-3); font-size: .9rem; }
+        .foot a { color: var(--ink); }
+
+        @media (max-width: 52rem) {
+            .packages { grid-template-columns: minmax(0, 1fr); }
+            .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 40rem) { .top nav a:not(:last-child) { display: none; } }
+        @media (max-width: 30rem) { .principles { grid-template-columns: minmax(0, 1fr); } }
+        @media (prefers-reduced-motion: reduce) { .card, .shot img { transition: none; } .card:hover { transform: none; } }
+    </style>
+</head>
+<body>
+    <header class="wrap top">
+        <a href="./" aria-label="Ruvelo home"><img class="logo-light" src="assets/logo.svg" alt="Ruvelo"><img class="logo-dark" src="assets/logo-white.svg" alt="Ruvelo" style="display:none"></a>
+        <nav aria-label="Main"><a href="#packages">Packages</a><a href="#how">How we build</a><a href="https://github.com/Ruvelo">GitHub</a></nav>
+    </header>
+
+    <main>
+        <section class="wrap hero">
+            <div>
+            <h1>Polished, open-source packages for Laravel.</h1>
+            <p>Features your app shouldn't have to build from scratch: a wiki, a notification inbox, comments and a help centre. Each one installs with one command and comes with its own UI, typed APIs, real docs and a live demo.</p>
+            <div class="actions">
+                <a class="button" href="#packages">Browse the packages</a>
+                <a class="button button--quiet" href="https://github.com/Ruvelo">View on GitHub</a>
+            </div>
+            <div class="stats"><span><b>4</b> packages</span><span><b>MIT</b> licensed</span><span>Laravel <b>12 & 13</b></span><span>PHPStan <b>level 8</b></span></div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <img src="/laravel-help-center/art/screenshot-home.png" alt="">
+                <img src="/laravel-inbox/art/screenshot-bell.png" alt="">
+                <img src="/laravel-wiki/art/screenshot-page.png" alt="">
+            </div>
+        </section>
+
+        <section class="wrap section" id="packages">
+            <h2>The packages</h2>
+            <p class="intro">Each one is free, works without a build step, and plays well with Blade, Livewire and Inertia. Click a screenshot to try the live demo.</p>
+            <div class="packages">
+                <article class="card">
+                    <a class="shot" href="https://ruvelo.github.io/laravel-wiki/" aria-label="Laravel Wiki live demo"><img src="/laravel-wiki/art/screenshot-page.png" alt="A wiki page with a menu on the left and an outline on the right" loading="lazy"></a>
+                    <div class="body">
+                        <div class="head"><span class="chip" aria-hidden="true">W</span><h3><a href="https://github.com/Ruvelo/laravel-wiki">Laravel Wiki</a></h3><span class="version" data-repo="laravel-wiki">v1.2.0</span></div>
+                        <p>A drop-in wiki for your team: Markdown pages, <code>[[links]]</code> between them, full history with diffs, and an MCP server so AI agents can read it.</p>
+                        <div class="install"><code>composer require ruvelo/laravel-wiki</code><button class="copy" type="button" data-copy="composer require ruvelo/laravel-wiki">Copy</button></div>
+                        <div class="links"><a href="https://ruvelo.github.io/laravel-wiki/">Live demo</a><a href="https://github.com/Ruvelo/laravel-wiki#readme">Docs</a><a href="https://github.com/Ruvelo/laravel-wiki">GitHub</a></div>
+                    </div>
+                </article>
+                <article class="card">
+                    <a class="shot" href="https://ruvelo.github.io/laravel-inbox/" aria-label="Laravel Inbox live demo"><img src="/laravel-inbox/art/screenshot-bell.png" alt="A notification bell open over an app dashboard" loading="lazy"></a>
+                    <div class="body">
+                        <div class="head"><span class="chip" aria-hidden="true">I</span><h3><a href="https://github.com/Ruvelo/laravel-inbox">Laravel Inbox</a></h3><span class="version" data-repo="laravel-inbox">v1.1.0</span></div>
+                        <p>The notification inbox Laravel never shipped: a bell for your header, an inbox page and per-user preferences, on the notifications you already send.</p>
+                        <div class="install"><code>composer require ruvelo/laravel-inbox</code><button class="copy" type="button" data-copy="composer require ruvelo/laravel-inbox">Copy</button></div>
+                        <div class="links"><a href="https://ruvelo.github.io/laravel-inbox/">Live demo</a><a href="https://github.com/Ruvelo/laravel-inbox#readme">Docs</a><a href="https://github.com/Ruvelo/laravel-inbox">GitHub</a></div>
+                    </div>
+                </article>
+                <article class="card">
+                    <a class="shot" href="https://ruvelo.github.io/laravel-comments/" aria-label="Laravel Comments live demo"><img src="/laravel-comments/art/screenshot-thread.png" alt="A comment thread with replies and emoji reactions" loading="lazy"></a>
+                    <div class="body">
+                        <div class="head"><span class="chip" aria-hidden="true">C</span><h3><a href="https://github.com/Ruvelo/laravel-comments">Laravel Comments</a></h3><span class="version" data-repo="laravel-comments">v1.1.0</span></div>
+                        <p>Threaded comments for any model, with reactions, Markdown, @mentions and moderation. Free, and not tied to Livewire.</p>
+                        <div class="install"><code>composer require ruvelo/laravel-comments</code><button class="copy" type="button" data-copy="composer require ruvelo/laravel-comments">Copy</button></div>
+                        <div class="links"><a href="https://ruvelo.github.io/laravel-comments/">Live demo</a><a href="https://github.com/Ruvelo/laravel-comments#readme">Docs</a><a href="https://github.com/Ruvelo/laravel-comments">GitHub</a></div>
+                    </div>
+                </article>
+                <article class="card">
+                    <a class="shot" href="https://ruvelo.github.io/laravel-help-center/" aria-label="Laravel Help Center live demo"><img src="/laravel-help-center/art/screenshot-home.png" alt="A help centre home page with a search box and topic cards" loading="lazy"></a>
+                    <div class="body">
+                        <div class="head"><span class="chip" aria-hidden="true">H</span><h3><a href="https://github.com/Ruvelo/laravel-help-center">Laravel Help Center</a></h3><span class="version" data-repo="laravel-help-center">v1.1.0</span></div>
+                        <p>A public help centre for your customers: instant search, categories, "Was this helpful?" votes and an editor with live preview.</p>
+                        <div class="install"><code>composer require ruvelo/laravel-help-center</code><button class="copy" type="button" data-copy="composer require ruvelo/laravel-help-center">Copy</button></div>
+                        <div class="links"><a href="https://ruvelo.github.io/laravel-help-center/">Live demo</a><a href="https://github.com/Ruvelo/laravel-help-center#readme">Docs</a><a href="https://github.com/Ruvelo/laravel-help-center">GitHub</a></div>
+                    </div>
+                </article>
+                <article class="card card--soon">
+                    <div class="body">
+                        <div class="head"><span class="chip" aria-hidden="true">F</span><h3>Filament Wiki</h3><span class="soon">Coming soon</span></div>
+                        <p>Laravel Wiki inside your Filament admin panel: pages, history with diffs, restore and a recent-changes widget.</p>
+                    </div>
+                </article>
+                <article class="card card--soon">
+                    <div class="body">
+                        <div class="head"><span class="chip" aria-hidden="true">T</span><h3>Laravel Translations</h3><span class="soon">Coming soon</span></div>
+                        <p>Manage translations in the browser, find missing keys, and edit the strings on any page while you look at it.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <div class="band" id="how">
+            <section class="wrap section">
+                <h2>Built the same way, every time</h2>
+                <p class="intro">Every Ruvelo package follows one standard, so once you've used one, you know them all.</p>
+                <ul class="principles">
+                    <li><b>Installs in one command</b><span>No build step, no extra services. It uses your database and your logins.</span></li>
+                    <li><b>Looks finished</b><span>A real UI in light and dark, readable on a phone, and easy to restyle or drop into your layout.</span></li>
+                    <li><b>Made for developers</b><span>Typed PHP and JSON APIs, events, factories, and guidelines for AI coding agents.</span></li>
+                    <li><b>Kept healthy</b><span>Strict types, PHPStan level 8 and tests on every Laravel and PHP version we support.</span></li>
+                </ul>
+            </section>
+        </div>
+
+        <section class="wrap section">
+            <div class="next">
+                <div><h2>WordPress and Magento are next</h2><p>The same standard, for the other platforms you run. Follow along on GitHub.</p></div>
+                <a class="button" href="https://github.com/Ruvelo">Follow Ruvelo</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="wrap foot">
+        <span>Built by <a href="https://github.com/francoisbultez">François Bultez</a>. Every package is MIT licensed.</span>
+        <span><a href="https://github.com/Ruvelo/.github/blob/main/BRAND.md">House style</a> &nbsp; <a href="https://github.com/Ruvelo">GitHub</a></span>
+    </footer>
+
+    <script>
+        // Copy buttons
+        for (const button of document.querySelectorAll('[data-copy]')) {
+            button.addEventListener('click', async () => {
+                await navigator.clipboard.writeText(button.dataset.copy);
+                button.textContent = 'Copied';
+                button.dataset.done = '';
+                setTimeout(() => { button.textContent = 'Copy'; delete button.dataset.done; }, 1600);
+            });
+        }
+        // Latest release from GitHub, so the badges stay current; the
+        // versions written in the HTML are the fallback.
+        for (const badge of document.querySelectorAll('[data-repo]')) {
+            fetch(`https://api.github.com/repos/Ruvelo/${badge.dataset.repo}/releases/latest`)
+                .then((response) => (response.ok ? response.json() : null))
+                .then((release) => { if (release?.tag_name) badge.textContent = release.tag_name; })
+                .catch(() => {});
+        }
+    </script>
+</body>
+</html>
