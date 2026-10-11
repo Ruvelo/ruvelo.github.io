@@ -9,9 +9,11 @@
     <meta property="og:description" content="Open-source extensions for Laravel, WordPress and Magento.">
     <meta property="og:image" content="https://ruvelo.github.io/assets/avatar.png">
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap">
+    <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        @font-face { font-family: "Geist"; src: url("assets/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+        @font-face { font-family: "Geist Mono"; src: url("assets/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+    </style>
     <style>
         :root {
             --bg: #ffffff; --subtle: #f8f8fc; --muted: #f0f0f7; --line: #e4e4ef;
@@ -121,11 +123,11 @@
 
         <section class="wrap section" id="packages">
             <h2>Extensions</h2>
-            <p class="intro">Free, MIT licensed, and each one has a live demo. Laravel and WordPress today; Magento is in preparation.</p>
+            <p class="intro">Free, open source, and each one has a live demo. Laravel and WordPress today; Magento is in preparation.</p>
             <div class="filters" role="toolbar" aria-label="Filter by platform" hidden></div>
             <div class="packages">
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-wiki/" aria-label="Laravel Wiki live demo"><img src="/laravel-wiki/art/screenshot-page.png" alt="A wiki page" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-wiki/" aria-label="Laravel Wiki live demo"><img src="assets/thumbs/laravel-wiki.webp" width="352" height="220" alt="A wiki page" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-wiki">Laravel Wiki</a> <span class="version" data-repo="laravel-wiki">v1.2.0</span></h3>
                         <p>A wiki for your team, with page history and AI-agent access.</p>
@@ -133,7 +135,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-inbox/" aria-label="Laravel Inbox live demo"><img src="/laravel-inbox/art/screenshot-bell.png" alt="A notification bell" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-inbox/" aria-label="Laravel Inbox live demo"><img src="assets/thumbs/laravel-inbox.webp" width="352" height="220" alt="A notification bell" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-inbox">Laravel Inbox</a> <span class="version" data-repo="laravel-inbox">v1.1.0</span></h3>
                         <p>A notification bell, inbox and preferences for your users.</p>
@@ -141,7 +143,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-comments/" aria-label="Laravel Comments live demo"><img src="/laravel-comments/art/screenshot-thread.png" alt="A comment thread" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-comments/" aria-label="Laravel Comments live demo"><img src="assets/thumbs/laravel-comments.webp" width="352" height="220" alt="A comment thread" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-comments">Laravel Comments</a> <span class="version" data-repo="laravel-comments">v1.1.0</span></h3>
                         <p>Threaded comments with reactions and moderation, on any model.</p>
@@ -149,7 +151,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-help-center/" aria-label="Laravel Help Center live demo"><img src="/laravel-help-center/art/screenshot-home.png" alt="A help centre home page" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-help-center/" aria-label="Laravel Help Center live demo"><img src="assets/thumbs/laravel-help-center.webp" width="352" height="220" alt="A help centre home page" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-help-center">Laravel Help Center</a> <span class="version" data-repo="laravel-help-center">v1.1.0</span></h3>
                         <p>A searchable help centre for your customers.</p>
@@ -157,7 +159,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-feedback/" aria-label="Laravel Feedback live demo"><img src="/laravel-feedback/art/screenshot-board.png" alt="A feedback board with votes" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-feedback/" aria-label="Laravel Feedback live demo"><img src="assets/thumbs/laravel-feedback.webp" width="352" height="220" alt="A feedback board with votes" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-feedback">Laravel Feedback</a> <span class="version" data-repo="laravel-feedback">v1.0.0</span></h3>
                         <p>A feedback board, public roadmap and changelog. Voters hear when it ships.</p>
@@ -165,7 +167,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-device/" aria-label="Laravel Device live demo"><img src="/laravel-device/art/screenshot-table.png" alt="A table of detected devices, browsers and bots" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-device/" aria-label="Laravel Device live demo"><img src="assets/thumbs/laravel-device.webp" width="352" height="220" alt="A table of detected devices, browsers and bots" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-device">Laravel Device</a> <span class="version" data-repo="laravel-device">v1.0.0</span></h3>
                         <p>Device, browser and bot detection, AI crawlers included. Replaces jenssegers/agent.</p>
@@ -180,7 +182,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="laravel">
-                    <a class="thumb" href="https://ruvelo.github.io/laravel-translations/" aria-label="Laravel Translations live demo"><img src="/laravel-translations/art/screenshot-editor.png" alt="A translation editor with a placeholder warning" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
+                    <a class="thumb" href="https://ruvelo.github.io/laravel-translations/" aria-label="Laravel Translations live demo"><img src="assets/thumbs/laravel-translations.webp" width="352" height="220" alt="A translation editor with a placeholder warning" loading="lazy"><span class="pf pf--laravel" title="For Laravel"><svg role="img" aria-label="Laravel"><use href="#pf-laravel"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/laravel-translations">Laravel Translations</a> <span class="version" data-repo="laravel-translations">v1.0.0</span></h3>
                         <p>Manage and edit your app’s translations in the browser, right on the page.</p>
@@ -188,7 +190,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="wordpress">
-                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-feedback/main/blueprint.json" aria-label="Try Ruvelo Feedback in WordPress Playground"><img src="/wp-feedback/img/screenshot-1.png" alt="A feedback board in a WordPress theme" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
+                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-feedback/main/blueprint.json" aria-label="Try Ruvelo Feedback in WordPress Playground"><img src="assets/thumbs/wp-feedback.webp" width="352" height="220" alt="A feedback board in a WordPress theme" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/wp-feedback">Ruvelo Feedback</a> <span class="version" data-repo="wp-feedback">v1.0.0</span></h3>
                         <p>A feedback board, public roadmap and changelog for WordPress. No upsells.</p>
@@ -196,7 +198,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="wordpress">
-                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-inbox/main/blueprint.json" aria-label="Try Ruvelo Inbox in WordPress Playground"><img src="/wp-inbox/img/screenshot-1.png" alt="The notification bell open in the WordPress admin" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
+                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-inbox/main/blueprint.json" aria-label="Try Ruvelo Inbox in WordPress Playground"><img src="assets/thumbs/wp-inbox.webp" width="352" height="220" alt="The notification bell open in the WordPress admin" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/wp-inbox">Ruvelo Inbox</a> <span class="version" data-repo="wp-inbox">v1.0.0</span></h3>
                         <p>A notification bell and inbox for WordPress, with per-person preferences. No upsells.</p>
@@ -204,7 +206,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="wordpress">
-                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-comment-subscriptions/main/blueprint.json" aria-label="Try Ruvelo Comment Subscriptions in WordPress Playground"><img src="/wp-comment-subscriptions/img/screenshot-1.png" alt="The comment form with follow-up options" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
+                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-comment-subscriptions/main/blueprint.json" aria-label="Try Ruvelo Comment Subscriptions in WordPress Playground"><img src="assets/thumbs/wp-comment-subscriptions.webp" width="352" height="220" alt="The comment form with follow-up options" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/wp-comment-subscriptions">Ruvelo Comment Subscriptions</a> <span class="version" data-repo="wp-comment-subscriptions">v1.0.0</span></h3>
                         <p>Readers follow a post's comments by email, with double opt-in and one-click unsubscribe. No upsells.</p>
@@ -212,7 +214,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="wordpress">
-                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-editorial/main/blueprint.json" aria-label="Try Ruvelo Editorial in WordPress Playground"><img src="/wp-editorial/img/screenshot-1.png" alt="The editorial review queue in the WordPress admin" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
+                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-editorial/main/blueprint.json" aria-label="Try Ruvelo Editorial in WordPress Playground"><img src="assets/thumbs/wp-editorial.webp" width="352" height="220" alt="The editorial review queue in the WordPress admin" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/wp-editorial">Ruvelo Editorial</a> <span class="version" data-repo="wp-editorial">v1.0.0</span></h3>
                         <p>An editorial workflow for WordPress: statuses, reviewers, due dates and notes. No upsells.</p>
@@ -220,7 +222,7 @@
                     </div>
                 </article>
                 <article class="pkg" data-platform="wordpress">
-                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-help-center/main/blueprint.json" aria-label="Try Ruvelo Help Center in WordPress Playground"><img src="/wp-help-center/art/screenshot-1.png" alt="A help centre home page in a WordPress theme" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
+                    <a class="thumb" href="https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Ruvelo/wp-help-center/main/blueprint.json" aria-label="Try Ruvelo Help Center in WordPress Playground"><img src="assets/thumbs/wp-help-center.webp" width="352" height="220" alt="A help centre home page in a WordPress theme" loading="lazy"><span class="pf pf--wordpress" title="For WordPress"><svg role="img" aria-label="WordPress"><use href="#pf-wordpress"/></svg></span></a>
                     <div class="info">
                         <h3><a href="https://github.com/Ruvelo/wp-help-center">Ruvelo Help Center</a> <span class="version" data-repo="wp-help-center">v1.0.0</span></h3>
                         <p>An AI-ready help centre for WordPress: docs, search, Markdown and llms.txt.</p>
